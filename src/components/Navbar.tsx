@@ -74,7 +74,7 @@ export default function Navbar() {
                 alt="Ryam Aesthetics"
                 className="h-10 w-10 rounded-full object-cover flex-shrink-0 md:h-12 md:w-12"
               />
-              <span className={`font-display text-sm tracking-widest uppercase whitespace-nowrap md:text-base ${
+              <span className={`font-display text-[11px] tracking-widest uppercase whitespace-nowrap md:text-base ${
                 isScrolled ? 'text-spa-text dark:text-cream-light' : 'text-white'}`}>
                 {isHome ? brandText : 'Ryam.Aesthetics'}
               </span>

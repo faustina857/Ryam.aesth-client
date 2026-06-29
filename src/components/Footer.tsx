@@ -145,11 +145,11 @@ export default function Footer() {
                     08105101960
                   </a>
                   
-                   <a href="mailto:rosemaryeze1960@gmail.com"
+                   <a href="mailto:ryamaesthetics5@gmail.com"
                     className="font-sans text-xs text-white/70 hover:text-gold transition-colors flex items-center gap-1"
                   >
                     <Mail size={11} />
-                    rosemaryeze1960@gmail.com
+                    ryamaesthetics5@gmail.com
                   </a>
                 </div>
               </div>

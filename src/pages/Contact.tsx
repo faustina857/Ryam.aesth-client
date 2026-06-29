@@ -106,7 +106,7 @@ export default function Contact() {
                       Address
                     </p>
                     <p className="font-sans text-sm text-spa-text dark:text-cream-light leading-relaxed">
-                      Lekki Peninsula Scheme 2, Ogombo Road, Abraham Adesanya, Ajah, Lagos.
+                      Lekki Peninsula Scheme 2, Ogombo Road, <br /> Abraham Adesanya, Ajah, Lagos.
                     </p>
                   </div>
                 </div>
@@ -137,10 +137,10 @@ export default function Contact() {
                       Email
                     </p>
                     
-                      <a href="mailto:rosemaryeze1960@gmail.com"
+                      <a href="mailto:ryamaesthetics5@gmail.com"
                       className="font-sans text-sm text-spa-text dark:text-cream-light hover:text-gold transition-colors"
                     >
-                      rosemaryeze1960@gmail.com
+                      ryamaesthetics5@gmail.com
                     </a>
                   </div>
                 </div>

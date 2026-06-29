@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { getServices, createAppointment } from '../services/api'
@@ -15,7 +15,7 @@ const initialForm: Appointment = {
   fullName: '',
   email: '',
   phone: '',
-  service: '',
+  services: [],
   date: '',
   time: '',
   specialRequests: '',
@@ -26,6 +26,7 @@ export default function BookAppointment() {
   const [searchParams] = useSearchParams()
   const [form, setForm] = useState<Appointment>(initialForm)
   const [success, setSuccess] = useState(false)
+  const navigate = useNavigate()
 
   const { data } = useQuery({
     queryKey: ['services'],
@@ -37,7 +38,7 @@ export default function BookAppointment() {
   useEffect(() => {
     const serviceFromUrl = searchParams.get('service')
     if (serviceFromUrl) {
-      setForm(prev => ({ ...prev, service: serviceFromUrl }))
+      setForm(prev => ({ ...prev, services: [serviceFromUrl as string] }))
     }
   }, [searchParams])
 
@@ -49,20 +50,37 @@ export default function BookAppointment() {
     },
   })
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-        ) => {
-        const { name, value } = e.target
-        setForm(prev => ({
-            ...prev,
-            [name]: name === 'numberOfPeople' ? Number(value) : value,
-        }))
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target
+    const checked = (e.target as HTMLInputElement).checked
+
+    if (name === 'services') {
+      setForm(prev => ({
+        ...prev,
+        services: checked
+          ? [...prev.services, value]
+          : prev.services.filter(s => s !== value),
+      }))
+      return
     }
+
+    setForm(prev => ({
+      ...prev,
+      [name]: name === 'numberOfPeople' ? Number(value) : value,
+    }))
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     mutate(form)
   }
+  const handleBackToHome = () => {
+  setSuccess(false)
+  setForm(initialForm)
+  navigate('/')
+}
 
   const today = new Date().toISOString().split('T')[0]
 
@@ -88,10 +106,10 @@ export default function BookAppointment() {
             For enquiries call <span className="text-gold">08105101960</span>
           </p>
           <button
-            onClick={() => setSuccess(false)}
+            onClick={handleBackToHome}
             className="bg-gold text-white font-sans text-xs tracking-widest uppercase px-8 py-3 rounded-pill hover:bg-gold-light transition-colors duration-300"
           >
-            Book Another
+            Back to Home
           </button>
         </motion.div>
       </main>
@@ -135,7 +153,7 @@ export default function BookAppointment() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           onSubmit={handleSubmit}
-          className="bg-white dark:bg-spa-surface rounded-3xl p-8 md:p-10 flex flex-col gap-6"
+          className="bg-white dark:bg-spa-surface rounded-3xl p-7 md:p-10 flex flex-col gap-6"
         >
 
           {/* Full Name */}
@@ -205,25 +223,50 @@ export default function BookAppointment() {
             </select>
             </div>
 
-          {/* Service */}
-          <div className="flex flex-col gap-2">
+          {/* Services */}
+          <div className="flex flex-col gap-3">
             <label className="font-sans text-xs tracking-widest uppercase text-spa-muted dark:text-cream-light/60">
-              Select Service
+              Select Services <span className="normal-case text-spa-muted/60">(choose one or more)</span>
             </label>
-            <select
-              name="service"
-              value={form.service}
-              onChange={handleChange}
-              required
-              className="font-sans text-sm text-spa-text dark:text-cream-light bg-cream-light dark:bg-spa-dark border border-spa-border dark:border-spa-surface rounded-xl px-4 py-3 outline-none focus:border-gold transition-colors"
-            >
-              <option value="">Choose a service</option>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto pr-1">
               {services.map(s => (
-                <option key={s._id} value={s.name}>
-                  {s.name} — ₦{s.price.toLocaleString()}
-                </option>
+                <label
+                  key={s._id}
+                  className={`flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${
+                    form.services.includes(s.name)
+                      ? 'border-gold bg-gold/5'
+                      : 'border-spa-border dark:border-spa-surface hover:border-gold/50'
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    name="services"
+                    value={s.name}
+                    checked={form.services.includes(s.name)}
+                    onChange={handleChange}
+                    className="mt-0.5 accent-[#B8962E] flex-shrink-0"
+                  />
+                  <div className="flex flex-col gap-0.5">
+                    <span className="font-sans text-sm text-spa-text dark:text-cream-light">
+                      {s.name}
+                    </span>
+                    <span className="font-sans text-xs text-gold">
+                      ₦{s.price.toLocaleString()}
+                    </span>
+                  </div>
+                </label>
               ))}
-            </select>
+            </div>
+            {form.services.length === 0 && (
+              <p className="font-sans text-xs text-spa-muted dark:text-cream-light/40">
+                Please select at least one service
+              </p>
+            )}
+            {form.services.length > 0 && (
+              <p className="font-sans text-xs text-gold">
+                {form.services.length} service{form.services.length > 1 ? 's' : ''} selected
+              </p>
+            )}
           </div>
 
           {/* Date and Time */}
@@ -239,7 +282,7 @@ export default function BookAppointment() {
                 onChange={handleChange}
                 required
                 min={today}
-                className="font-sans text-sm text-spa-text dark:text-cream-light bg-cream-light dark:bg-spa-dark border border-spa-border dark:border-spa-surface rounded-xl px-4 py-3 outline-none focus:border-gold transition-colors"
+                className="font-sans text-sm text-spa-text dark:text-cream-light bg-cream-light dark:bg-spa-dark border border-spa-border dark:border-spa-surface rounded-xl px-4 py-3 outline-none focus:border-gold transition-colors dark:[color-scheme:dark]"
               />
             </div>
 
@@ -287,7 +330,7 @@ export default function BookAppointment() {
           {/* Submit */}
           <button
             type="submit"
-            disabled={isPending}
+            disabled={isPending || form.services.length === 0}
             className="w-full bg-gold text-white font-sans text-xs tracking-widest uppercase px-8 py-4 rounded-pill hover:bg-gold-light transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isPending ? 'Submitting...' : 'Book Appointment'}

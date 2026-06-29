@@ -166,7 +166,7 @@ export default function AdminAppointments() {
                   {/* Center — Appointment details */}
                   <div className="flex flex-col gap-1">
                     <p className="font-sans text-sm text-white">
-                      {appointment.service}
+                      {appointment.services.join(', ')}
                     </p>
                     <p className="font-sans text-xs text-white/50">
                       {formatDate(appointment.date)} · {appointment.time}

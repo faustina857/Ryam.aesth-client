@@ -13,7 +13,7 @@ export interface Appointment {
   fullName: string
   email: string
   phone: string
-  service: string
+  services: string[]
   date: string
   time: string
   specialRequests?: string
@@ -31,7 +31,7 @@ export interface AppointmentRecord {
   fullName: string
   email: string
   phone: string
-  service: string
+  services: string[]
   date: string
   time: string
   numberOfPeople: number
