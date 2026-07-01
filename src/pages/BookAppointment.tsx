@@ -47,6 +47,7 @@ export default function BookAppointment() {
     onSuccess: () => {
       setSuccess(true)
       setForm(initialForm)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     },
   })
 
