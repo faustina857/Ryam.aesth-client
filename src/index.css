@@ -6,8 +6,13 @@
 
 @layer base {
   html {
-    @apply scroll-smooth;
+    @apply scroll-smooth bg-spa-text;
   }
+
+  body {
+    @apply bg-cream-light text-spa-text font-sans antialiased;
+  }
+}
 
 @layer utilities {
   .scrollbar-hide {
@@ -16,10 +21,5 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
-  }
-}
-
-  body {
-    @apply bg-cream-light text-spa-text font-sans antialiased;
   }
 }
