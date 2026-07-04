@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useQuery, useMutation } from '@tanstack/react-query'
@@ -47,8 +47,10 @@ export default function BookAppointment() {
     onSuccess: () => {
       setSuccess(true)
       setForm(initialForm)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    },
+      setTimeout(() => {
+        successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 100)
+  }
   })
 
   const handleChange = (
@@ -84,11 +86,13 @@ export default function BookAppointment() {
 }
 
   const today = new Date().toISOString().split('T')[0]
+  const successRef = useRef<HTMLDivElement>(null)
 
   if (success) {
     return (
       <main className=" bg-cream-light dark:bg-spa-dark flex items-center justify-center px-4 py-20">
         <motion.div
+          ref={successRef}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
