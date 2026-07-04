@@ -104,7 +104,7 @@ export default function BookAppointment() {
             Thank you for booking with Ryam Aesthetics. We have received your appointment request and will confirm it shortly via email.
           </p>
           <p className="font-sans text-xs text-spa-muted dark:text-cream-light/60 mb-8">
-            For enquiries call <span className="text-gold">08105101960</span>
+            To cancel or reschedule, please call <span className="text-gold">08105101960</span> at least 12 hours before your appointment.
           </p>
           <button
             onClick={handleBackToHome}
