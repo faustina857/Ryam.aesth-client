@@ -16,8 +16,16 @@ const [activeCategory, setActiveCategory] = useState<Category>('All')
 
 useEffect(() => {
   const cat = searchParams.get('category')
+
   if (cat && CATEGORIES.includes(cat as Category)) {
     setActiveCategory(cat as Category)
+
+    requestAnimationFrame(() => {
+      document.getElementById('services')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    })
   } else {
     setActiveCategory('All')
   }
@@ -64,13 +72,18 @@ useEffect(() => {
       </section>
 
       {/* Filter Tabs */}
-      <section className="sticky top-16 md:top-20 z-40 bg-cream-light/95 dark:bg-spa-dark/95 backdrop-blur-sm border-b border-spa-border dark:border-spa-surface">
+      <section
+        className="sticky top-16 md:top-20 z-40 bg-cream-light/95 dark:bg-spa-dark/95 backdrop-blur-sm border-b border-spa-border dark:border-spa-surface">
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16">
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-4">
             {CATEGORIES.map(category => (
               <button
                 key={category}
-                onClick={() => setActiveCategory(category)}
+                onClick={() => {
+                  const params = new URLSearchParams(searchParams)
+                  params.set('category', category)
+                  window.history.replaceState({}, '', `/services?${params}`)
+                }}
                 className={`flex-shrink-0 font-sans text-xs tracking-widest uppercase px-5 py-2 rounded-pill transition-all duration-300 ${
                   activeCategory === category
                     ? 'bg-gold text-white'
@@ -85,7 +98,9 @@ useEffect(() => {
       </section>
 
       {/* Services Grid */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-16">
+      <section 
+        id='services'
+        className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-16">
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(6)].map((_, i) => (
