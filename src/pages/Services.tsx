@@ -19,16 +19,11 @@ useEffect(() => {
 
   if (cat && CATEGORIES.includes(cat as Category)) {
     setActiveCategory(cat as Category)
-
-    requestAnimationFrame(() => {
-      document.getElementById('services')?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    })
   } else {
     setActiveCategory('All')
   }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }, [searchParams])
 
   const { data, isLoading } = useQuery({
@@ -73,14 +68,16 @@ useEffect(() => {
 
       {/* Filter Tabs */}
       <section 
-        id='services'
         className="sticky top-16 md:top-20 z-40 bg-cream-light/95 dark:bg-spa-dark/95 backdrop-blur-sm border-b border-spa-border dark:border-spa-surface">
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16">
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-4">
             {CATEGORIES.map(category => (
               <button
                 key={category}
-                onClick={() => setSearchParams({ category })}
+                onClick={() => {
+                  setSearchParams({ category })
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }}
                 className={`flex-shrink-0 font-sans text-xs tracking-widest uppercase px-5 py-2 rounded-pill transition-all duration-300 ${
                   activeCategory === category
                     ? 'bg-gold text-white'
