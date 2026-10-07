@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getServices, createService, updateService, deactivateService } from '../../services/api'
 import type { Service } from '../../types'
 import { optimizeImage } from '../../utils/cloudinary'
+import { Helmet } from 'react-helmet-async'
 
 const CATEGORIES = ['Facials', 'Waxing', 'Brows', 'Massage Therapy'] as const
 
@@ -125,7 +126,10 @@ useEffect(() => {
 
   return (
     <main className="min-h-screen bg-spa-dark">
-
+      <Helmet>
+        <title>Admin Pages | Ryam Aesthetics</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       {/* Admin Navbar */}
       <header className="bg-spa-surface border-b border-white/10 px-4 md:px-8 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">

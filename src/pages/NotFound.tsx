@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { Helmet } from 'react-helmet-async'
 
 export default function NotFound() {
   return (
+    
     <main className="min-h-screen bg-cream-light dark:bg-spa-dark flex items-center justify-center px-4">
+      <Helmet>
+        <title>Page not found | Ryam Aesthetics</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <div className="text-center">
 
         <motion.p

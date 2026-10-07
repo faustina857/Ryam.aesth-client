@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { loginAdmin } from '../../services/api'
+import { Helmet } from 'react-helmet-async'
 
 export default function AdminLogin() {
   const navigate = useNavigate()
@@ -34,6 +35,10 @@ export default function AdminLogin() {
 
   return (
     <main className="min-h-screen bg-spa-text flex items-center justify-center px-4">
+      <Helmet>
+        <title>Admin Pages | Ryam Aesthetics</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
