@@ -26,9 +26,10 @@ export default function About() {
     <main className="min-h-screen bg-cream-light dark:bg-spa-dark">
       <Helmet>
         <title>About Us | Ryam Aesthetics</title>
-        <meta name="description" content="Learn about Ryam Aesthetics — a luxury spa and wellness sanctuary in Ajah, Lagos. Built for everyone who values expert care and genuine results." />
+        <meta name="description" content="Learn about Ryam Aesthetics — a luxury spa and wellness sanctuary in Lekki scheme 2, Lagos. Built for everyone who values expert care and genuine results." />
+        <link rel="canonical" href="https://www.ryamaesthetics.com/about"/>
         <meta property="og:title" content="About Us | Ryam Aesthetics" />
-        <meta property="og:url" content="https://ryamaesthetics.com/about" />
+        <meta property="og:url" content="https://www.ryamaesthetics.com/about" />
       </Helmet>
 
       {/* Page Hero */}

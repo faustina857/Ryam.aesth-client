@@ -126,9 +126,10 @@ export default function BookAppointment() {
 
       <Helmet>
         <title>Book an Appointment | Ryam Aesthetics</title>
-        <meta name="description" content="Book your spa appointment at Ryam Aesthetics. Choose from facials, waxing, brow treatments, and massage therapy in Ajah, Lagos." />
+        <meta name="description" content="Book your spa appointment at Ryam Aesthetics. Choose from facials, waxing, brow treatments, and massage therapy in Lekki Scheme 2, Lagos." />
+        <link rel="canonical" href="https://www.ryamaesthetics.com/book"/>
         <meta property="og:title" content="Book an Appointment | Ryam Aesthetics" />
-        <meta property="og:url" content="https://ryamaesthetics.com/book" />
+        <meta property="og:url" content="https://www.ryamaesthetics.com/book" />
       </Helmet>
 
       {/* Page Hero */}

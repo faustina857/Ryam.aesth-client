@@ -7,6 +7,7 @@ export default function PrivacyPolicy() {
         <Helmet>
         <title>Privacy Policy | Ryam Aesthetics</title>
         <meta name="description" content="Read the Ryam Aesthetics privacy policy to understand how we collect, use, and protect your personal information." />
+        <link rel="canonical" href="https://www.ryamaesthetics.com/privacy-policy"/>
         </Helmet>
 
       {/* Page Hero */}

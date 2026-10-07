@@ -33,11 +33,13 @@ export default function Home() {
   return (
     <main>
       <Helmet>
-        <title>Ryam Aesthetics | Home Spa & Wellness in Ajah, Lagos</title>
-        <meta name="description" content="Experience premium spa treatments at Ryam Aesthetics. Facials, waxing, brow treatments, and massage therapy in Ajah, Lagos. Book your appointment today." />
-        <meta property="og:title" content="Ryam Aesthetics | Home Spa & Wellness" />
-        <meta property="og:description" content="Premium spa treatments in Ajah, Lagos. Facials, waxing, brow treatments & massage therapy." />
-        <meta property="og:url" content="https://ryamaesthetics.com" />
+        <title>Spa & Beauty Services in Lekki scheme 2, Lagos | Ryam Aesthetics </title>
+        <meta name="description" content="Ryam Aesthetics offers professional facials, waxing, brow treatments and massage therapy in Lekki Scheme 2, Lagos. Home service and in-person appointments available."/>
+        <link rel="canonical" href="https://www.ryamaesthetics.com/"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Ryam Aesthetics | Spa & Beauty Services in Lekki, Lagos"/>
+        <meta property="og:description" content="Professional facials, waxing, brow treatments and massage therapy at Ryam Aesthetics in Lekki Scheme 2, Lagos. Home service available."/>
+        <meta property="og:url" content="https://www.ryamaesthetics.com/"/>
       </Helmet>
       {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden">
@@ -81,7 +83,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
             className="font-sans text-sm md:text-base text-white/80 max-w-md mb-10"
           >
-            Experience the best facial treatments, waxing, brow treatments and massage therapy in our comfort zone.
+            Experience professional facials, waxing, brow treatments and massage therapy at Ryam Aesthetics in Lekki Scheme 2, Lagos. Home service is also available.
           </motion.p>
 
           <motion.div
@@ -157,7 +159,7 @@ export default function Home() {
                       {image ? (
                         <img
                           src={optimizeImage(image ?? '', 300)}
-                          alt={category}
+                          alt={`${category} treatment at Ryam Aesthetics`}
                           loading='lazy'
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
@@ -237,7 +239,7 @@ export default function Home() {
                 <div className="absolute md:top-80 top-60 left-12 md:right-[-60px] -translate-y-1/2 w-[90%] md:w-full h-[100%] md:h-full">
                 <img
                     src="/home-img.jpeg"
-                    alt="Inside Ryam Aesthetics"
+                    alt="Ryam Aesthetics spa interior in Lekki Scheme 2, Lagos"
                     loading='lazy'
                     className="w-full h-full object-cover"
                 />

@@ -6,7 +6,7 @@ Modern, responsive spa booking website for Ryam Aesthetics, a luxury spa and wel
 
 ## Live Site
 
-**[ryamaesthetics.com](https://ryamaesthetics.com)**
+**[ryamaesthetics.com](https://www.ryamaesthetics.com)**
 
 ---
 

@@ -39,8 +39,9 @@ export default function Contact() {
       <Helmet>
         <title>Contact Us | Ryam Aesthetics</title>
         <meta name="description" content="Get in touch with Ryam Aesthetics. Visit us at Lekki Peninsula Scheme 2, Ogombo Road, Abraham Adesanya, Ajah, Lagos. Call 08105101960." />
+        <link rel="canonical" href="https://www.ryamaesthetics.com/contact" />
         <meta property="og:title" content="Contact Us | Ryam Aesthetics" />
-        <meta property="og:url" content="https://ryamaesthetics.com/contact" />
+        <meta property="og:url" content="https://www.ryamaesthetics.com/contact" />
       </Helmet>
 
       {/* Page Hero */}

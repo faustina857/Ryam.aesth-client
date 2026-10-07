@@ -42,8 +42,10 @@ useEffect(() => {
       <Helmet>
         <title>Our Services | Ryam Aesthetics</title>
         <meta name="description" content="Explore our full range of spa services — facials, waxing, brow treatments, and massage therapy. Book your preferred treatment online." />
+        <link rel="canonical" href="https://www.ryamaesthetics.com/services"/>
+        <meta property="og:description" content="Explore our full range of spa services — facials, waxing, brow treatments, and massage therapy. Book your preferred treatment online." />
         <meta property="og:title" content="Our Services | Ryam Aesthetics" />
-        <meta property="og:url" content="https://ryamaesthetics.com/services" />
+        <meta property="og:url" content="https://www.ryamaesthetics.com/services" />
       </Helmet>
 
       {/* Page Hero */}
