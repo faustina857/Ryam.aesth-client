@@ -69,7 +69,7 @@ export default function Contact() {
         {/* Google Map */}
             <div className="rounded-2xl overflow-hidden h-[400px] md:h-[500px] mb-20">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16502.70754552059!2d3.5585865309521916!3d6.460962246337362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf70010967da7%3A0x11b843f552784f10!2sLekki%20scheme%202!5e0!3m2!1sen!2sng!4v1782388862753!5m2!1sen!2sng"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15857.894447428602!2d3.574430110739451!3d6.461522896910904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf94432b293c1%3A0x85f1969020f199af!2sRyam%20aesthetics!5e0!3m2!1sen!2sng!4v1791384899652!5m2!1sen!2sng"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -107,7 +107,7 @@ export default function Contact() {
                       Address
                     </p>
                     <p className="font-sans text-sm text-spa-text dark:text-cream-light leading-relaxed">
-                      Lekki Peninsula Scheme 2, Ogombo Road, <br /> Abraham Adesanya, Ajah, Lagos.
+                      Ralph. J. Karieren Cres, lekki scheme 2, Lekki 105102, Lagos
                     </p>
                   </div>
                 </div>

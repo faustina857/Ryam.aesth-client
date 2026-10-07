@@ -128,7 +128,7 @@ export default function Footer() {
                   <MapPin size={14} className="text-gold" />
                 </div>
                 <p className="font-sans text-xs text-white/70 leading-relaxed">
-                  Lekki Peninsula Scheme 2, Ogombo Road, Abraham Adesanya, Ajah, Lagos.
+                  Ralph. J. Karieren Cres, lekki scheme 2, Lekki 105102, Lagos
                 </p>
               </div>
 
