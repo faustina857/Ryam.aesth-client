@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
@@ -12,19 +12,13 @@ type Category = typeof CATEGORIES[number]
 
 export default function Services() {
 const [searchParams, setSearchParams] = useSearchParams()
-const [activeCategory, setActiveCategory] = useState<Category>('All')
+   const cat = searchParams.get('category')
+   const activeCategory: Category =
+     cat && CATEGORIES.includes(cat as Category) ? (cat as Category) : 'All'
 
-useEffect(() => {
-  const cat = searchParams.get('category')
-
-  if (cat && CATEGORIES.includes(cat as Category)) {
-    setActiveCategory(cat as Category)
-  } else {
-    setActiveCategory('All')
-  }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}, [searchParams])
+  useEffect(() => {
+     window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [searchParams])
 
   const { data, isLoading } = useQuery({
     queryKey: ['services'],

@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import axios from 'axios'
+import { useState, useRef } from 'react'
 import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useQuery, useMutation } from '@tanstack/react-query'
-import { getServices, createAppointment } from '../services/api'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { getServices, createAppointment, getBookedTimes } from '../services/api'
 import type { Service, Appointment } from '../types'
 import { Helmet } from 'react-helmet-async'
 
@@ -24,7 +25,10 @@ const initialForm: Appointment = {
 
 export default function BookAppointment() {
   const [searchParams] = useSearchParams()
-  const [form, setForm] = useState<Appointment>(initialForm)
+  const [form, setForm] = useState<Appointment>(() => {
+     const serviceFromUrl = searchParams.get('service')
+     return { ...initialForm, services: serviceFromUrl ? [serviceFromUrl] : [] }
+   })
   const [success, setSuccess] = useState(false)
   const navigate = useNavigate()
 
@@ -35,22 +39,32 @@ export default function BookAppointment() {
 
   const services: Service[] = data?.data ?? []
 
-  useEffect(() => {
-    const serviceFromUrl = searchParams.get('service')
-    if (serviceFromUrl) {
-      setForm(prev => ({ ...prev, services: [serviceFromUrl as string] }))
-    }
-  }, [searchParams])
+  const queryClient = useQueryClient()
 
-  const { mutate, isPending, isError, error } = useMutation({
+  const { data: bookedTimes = [] } = useQuery({
+    queryKey: ['booked-times', form.date],
+    queryFn: () => getBookedTimes(form.date),
+    enabled: Boolean(form.date),
+  })
+  const selectedTime = bookedTimes.includes(form.time) ? '' : form.time
+
+  const successRef = useRef<HTMLDivElement>(null)
+  const { mutate, isPending, isError, error, reset } = useMutation({
     mutationFn: createAppointment,
     onSuccess: () => {
       setSuccess(true)
       setForm(initialForm)
+      queryClient.invalidateQueries({ queryKey: ['booked-times'] })
       setTimeout(() => {
         successRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 100)
-  }
+  },
+    onError: (err) => {
+    if (axios.isAxiosError(err) && err.response?.status === 409) {
+      setForm(prev => ({ ...prev, time: '' }))
+      queryClient.invalidateQueries({ queryKey: ['booked-times'] })
+    }
+  },
   })
 
   const handleChange = (
@@ -58,6 +72,7 @@ export default function BookAppointment() {
   ) => {
     const { name, value } = e.target
     const checked = (e.target as HTMLInputElement).checked
+   if (name === 'date' || name === 'time') reset()
 
     if (name === 'services') {
       setForm(prev => ({
@@ -86,7 +101,10 @@ export default function BookAppointment() {
 }
 
   const today = new Date().toISOString().split('T')[0]
-  const successRef = useRef<HTMLDivElement>(null)
+
+  const errorMessage = axios.isAxiosError(error)
+  ? error.response?.data?.message ?? 'Something went wrong. Please try again.'
+  : 'Something went wrong. Please try again.'
 
   if (success) {
     return (
@@ -298,15 +316,20 @@ export default function BookAppointment() {
               </label>
               <select
                 name="time"
-                value={form.time}
+                value={selectedTime}
                 onChange={handleChange}
                 required
                 className="font-sans text-sm text-spa-text dark:text-cream-light bg-cream-light dark:bg-spa-dark border border-spa-border dark:border-spa-surface rounded-xl px-4 py-3 outline-none focus:border-gold transition-colors"
               >
                 <option value="">Choose a time</option>
-                {TIME_SLOTS.map(slot => (
-                  <option key={slot} value={slot}>{slot}</option>
-                ))}
+                {TIME_SLOTS.map(slot => {
+                  const taken = bookedTimes.includes(slot)
+                  return (
+                    <option key={slot} value={slot} disabled={taken}>
+                      {taken ? `${slot} (booked)` : slot}
+                    </option>
+                  )
+                })}
               </select>
             </div>
           </div>
@@ -329,7 +352,7 @@ export default function BookAppointment() {
           {/* Error message */}
           {isError && (
             <p className="font-sans text-xs text-red-500 text-center">
-              {error instanceof Error ? error.message : 'Something went wrong. Please try again.'}
+              {errorMessage}
             </p>
           )}
 

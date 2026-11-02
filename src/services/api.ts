@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { Service, Appointment, ApiResponse } from '../types'
+import type { Service, Appointment, ApiResponse, AppointmentRecord } from '../types'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
@@ -16,7 +16,10 @@ export const createAppointment = async (
   const response = await api.post('/appointments', data)
   return response.data
 }
-
+export const getBookedTimes = async (date: string): Promise<string[]> => {
+  const response = await api.get('/appointments/availability', { params: { date } })
+  return response.data.data ?? []
+}
 export const sendContact = async (data: {
   fullName: string
   email: string
@@ -36,7 +39,7 @@ export const loginAdmin = async (data: {
 }
 
 // Appointments
-export const getAppointments = async (token: string): Promise<ApiResponse<any[]>> => {
+export const getAppointments = async (token: string): Promise<ApiResponse<AppointmentRecord[]>> => {
   const response = await api.get('/appointments', {
     headers: { Authorization: `Bearer ${token}` },
   })
